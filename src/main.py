@@ -2,7 +2,9 @@
 尝试用chatgpt发布的api进行提问
 '''
 
-import readline
+# Windows环境readline不可用
+try: import readline
+except: pass
 
 import re
 import json
@@ -20,8 +22,6 @@ def get_api_key():
     写上自己的api-key
     '''
     return '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'
-    return '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'
-    return 'sk-jGOT27PsPatXxxxxxxxxT3BlbkFJpW2uNJqk9COrbTI0V1gE'
 
 def doPrompt(content: str):
     '''
@@ -61,7 +61,7 @@ def askOne4(
             {'role': 'system', 'content': systemPrompt},
             {"role": "user", "content": promptedContent},
         ],
-        "temperature": 0,
+        "temperature": temperature,
         "top_p": 1,
         "max_tokens": 512,
         "presence_penalty": 0,

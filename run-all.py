@@ -10,8 +10,8 @@ from typing import Dict, Callable
 from argparse import ArgumentParser
 
 from src.main import getRspContent, SYSTEM_PROMPT_DEFAULT
-# from src.fast_pool import askOne
-from src.main import askOne4 as askOne
+from src.fast_pool import askOne
+# from src.main import askOne4 as askOne
 
 SYSTEM_PROMPT = '''
 I want you to act as a deep learning model that can accurately perform sentiment analysis. I will enter a sentiment analysis task command, you will fully comply with the task requirements and judge the position on China in the sentence without any national sentiment position, I just want you to reply to one of the three sentiments: positive, negative and neutral, without writing any explanation.
@@ -115,7 +115,7 @@ def getArgs():
     return parser.parse_args()
 
 ARGS = getArgs()
-INPUT_DIR = str(ARGS.i)
+INPUT_DIR = str(ARGS.i).strip('/\\ \t\n\f')
 OUTPUT_DIR = str(ARGS.o or f'{INPUT_DIR}-result')
 os.makedirs(OUTPUT_DIR, exist_ok = True)
 
@@ -136,5 +136,6 @@ def deal(relativePath: str):
             print(f'quick exit for file "{relativePath}"')
 
 if __name__ == '__main__':
+    print(f'{INPUT_DIR = }, {OUTPUT_DIR = }')
     deal('')
     
